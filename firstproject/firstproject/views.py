@@ -2,4 +2,5 @@ from django.shortcuts import render, HttpResponse
 
 
 def home(request):
-    return HttpResponse("Hello world")
+    return render(request, "home.html")
+    # return HttpResponse("jnbjhf")
