@@ -3,13 +3,14 @@
 
 {% block body %}
 
+{% load crispy_forms_tags %}
 
 <div class="container">
     <h1>Contact Page</h1>
     <form method="post">
         {% csrf_token %}
+        {{form|crispy}}
 
-        {{form}}
 
 
 
