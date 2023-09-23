@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'basic.html'%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
-<body>
-    <h1>This is home page</h1>
-    {% for n in name %}
-    {{n}} <br>
-    {% endfor %}
-</body>
-
-</html>
+{% block body %}
+<h1>This is home page</h1>
+{% for n in name %}
+{{n}} <br>
+{% endfor %}
+{% endblock body %}s
