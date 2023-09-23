@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import path
-from .views import home, contact
+from django.urls import path, include
+from .views import home
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("home/", home, name="home"),
-    path("contact/", contact, name="contact"),
+    path("tuition_App/", include("tuition_App.urls")),
 ]

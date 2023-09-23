@@ -8,7 +8,12 @@
     <h1>Contact Page</h1>
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
+
+        {{form}}
+
+
+
+        <!-- <div class="form-group">
             <label for="exampleFormControlInput1">Name</label>
             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your name" name="name">
         </div>
@@ -20,7 +25,7 @@
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Details</label>
             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
-        </div>
+        </div> -->
         <button type="submit">Submit</button>
     </form>
 </div>
