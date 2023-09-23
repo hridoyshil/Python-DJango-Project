@@ -12,3 +12,14 @@ def home(request):
         "name": name,
     }
     return render(request, "home.html", contact)
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST["name"]
+        phone = request.POST["phone"]
+        content = request.POST["content"]
+        print(name)
+        print(phone)
+        print(content)
+    return render(request, "contact.html")
