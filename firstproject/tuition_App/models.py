@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.timezone import now
 
+
 # Create your models here.
 
 
@@ -28,6 +29,7 @@ class Post(models.Model):
     available = models.BooleanField()
     category = models.CharField(max_length=100, choices=CATEGORY)
     created_at = models.DateTimeField(default=now)
+    image = models.ImageField(upload_to="tuition/images")
 
     def __str__(self):
         return self.title
