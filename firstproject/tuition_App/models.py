@@ -3,6 +3,7 @@ from django.utils.timezone import now
 from PIL import Image
 from django.utils.text import slugify
 from multiselectfield import MultiSelectField
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -30,6 +31,9 @@ class Post(models.Model):
         ("physics", "physics"),
         ("Biology", "Biology"),
     )
+
+    # user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
 
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=100)
