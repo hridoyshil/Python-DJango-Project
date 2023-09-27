@@ -37,28 +37,24 @@ class Post(models.Model):
         ("Teacher", "Teacher"),
         ("Student", "Student"),
     )
-
     MEDIUM = (
         ("bangla", "bangla"),
         ("English", "English"),
-        ("Math", "Math"),
-        ("physics", "physics"),
-        ("Biology", "Biology"),
+        ("Urdu", "Urdu"),
+        ("Hindi", "Hindi"),
+        ("Arabic", "Arabic"),
     )
-
-    # user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=101)
     slug = models.CharField(max_length=100, default=title)
     email = models.EmailField()
-    salay = models.FloatField()
+    salary = models.FloatField()
     details = models.TextField()
     available = models.BooleanField()
     category = models.CharField(max_length=100, choices=CATEGORY)
     created_at = models.DateTimeField(default=now)
-    image = models.ImageField(upload_to="tuition/images")
+    image = models.ImageField(default="default.jpg", upload_to="tuition/images")
     medium = MultiSelectField(
         max_length=100, max_choices=5, choices=MEDIUM, default="bangla"
     )

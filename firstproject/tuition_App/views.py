@@ -30,17 +30,16 @@ def postcreate(request):
             obj.user = request.user
             obj.save()
 
-        #     sub = form.cleaned_data["subject"]
-        #     for i in sub:
-        #         obj.subject.add(i)
-        #         obj.save()
-        #     class_in = form.cleaned_data["class_in"]
-        #     for i in class_in:
-        #         obj.class_in.add(i)
-        #         obj.save()
+            sub = form.cleaned_data["subject"]
+            for i in sub:
+                obj.subject.add(i)
+                obj.save()
+            class_in = form.cleaned_data["class_in"]
+            for i in class_in:
+                obj.class_in.add(i)
+                obj.save()
+            return HttpResponse("Success")
 
-        #     return HttpResponse("Success")
-
-        else:
-            form = PostForm()
-        return render(request, "tuition/postcreate.html", {"form": form})
+    else:
+        form = PostForm()
+    return render(request, "tuition/postcreate.html", {"form": form})
