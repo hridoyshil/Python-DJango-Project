@@ -1,10 +1,11 @@
+from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Contact, Post, Subject
 from .forms import ContactForm, PostForm
 from django.http.response import HttpResponse
 from django.views import View
-from django.views.generic import FormView
+from django.views.generic import FormView, CreateView
 from django.urls import reverse_lazy
 
 
@@ -67,24 +68,39 @@ def subview(request):
     return render(request, "tuition/subjectview.html", {"sub": sub, "post": post})
 
 
-def postcreate(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.save()
+class PostCreareView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = "tuition/postcreate.html"
+    # success_url = "/"
 
-            sub = form.cleaned_data["subject"]
-            for i in sub:
-                obj.subject.add(i)
-                obj.save()
-            class_in = form.cleaned_data["class_in"]
-            for i in class_in:
-                obj.class_in.add(i)
-                obj.save()
-            return HttpResponse("Success")
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
-    else:
-        form = PostForm()
-    return render(request, "tuition/postcreate.html", {"form": form})
+    def get_success_url(self):
+        id = self.object.id
+        return reverse_lazy("tuition_App:subjects")
+
+
+# def postcreate(request):
+#     if request.method == "POST":
+#         form = PostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             obj = form.save(commit=False)
+#             obj.user = request.user
+#             obj.save()
+
+#             sub = form.cleaned_data["subject"]
+#             for i in sub:
+#                 obj.subject.add(i)
+#                 obj.save()
+#             class_in = form.cleaned_data["class_in"]
+#             for i in class_in:
+#                 obj.class_in.add(i)
+#                 obj.save()
+#             return HttpResponse("Success")
+
+#     else:
+#         form = PostForm()
+#     return render(request, "tuition/postcreate.html", {"form": form})
