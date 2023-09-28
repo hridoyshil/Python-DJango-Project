@@ -1,4 +1,6 @@
+from typing import Any
 from django.shortcuts import render, HttpResponse
+from django.views.generic import TemplateView
 
 # from tuition_App.models import Contact
 
@@ -16,12 +18,11 @@ def home(request):
     return render(request, "home.html", contact)
 
 
-# def contact(request):
-#     if request.method == "POST":
-#         name = request.POST["name"]
-#         phone = request.POST["phone"]
-#         content = request.POST["content"]
-#         obj = Contact(name=name, phone=phone, content=content)
-#         # model manager
-#         obj.save()
-#     return render(request, "contact.html")
+class HomeView(TemplateView):
+    template_name = "home.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["hr"] = "Welcome to our website"
+        context["h1"] = "Welcome to our website Again"
+        return context
