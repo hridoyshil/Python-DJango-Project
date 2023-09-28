@@ -1,3 +1,4 @@
+from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -5,7 +6,7 @@ from .models import Contact, Post, Subject
 from .forms import ContactForm, PostForm
 from django.http.response import HttpResponse
 from django.views import View
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView, CreateView, ListView
 from django.urls import reverse_lazy
 
 
@@ -60,6 +61,19 @@ class ContactView(FormView):
 def postview(request):
     post = Post.objects.all()
     return render(request, "tuition/postview.html", {"post": post})
+
+
+class PostListView(ListView):
+    template_name = "tuition/postlist.html"
+    queryset = Post.objects.filter(user=1)
+    # model = Post
+    context_object_name = "posts"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["posts"] = context.get("object_list")
+        context["msg"] = "This is post list"
+        return context
 
 
 def subview(request):

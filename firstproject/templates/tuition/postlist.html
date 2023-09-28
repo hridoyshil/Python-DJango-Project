@@ -1,0 +1,8 @@
+{% extends 'basic.html' %}
+{% block body %}
+
+{% for p in posts %}
+{{ p.title }}: by {{p.user.username}} <a href="/tuition/details/{{p.slug}}">Details</a>
+<hr>
+{% endfor %}
+{% endblock body %}
