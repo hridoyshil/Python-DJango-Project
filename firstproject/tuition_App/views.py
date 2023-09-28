@@ -62,6 +62,12 @@ class PostDetailView(DetailView):
     model = Post
     template_name = "tuition/postdetail.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["post"] = context.get("object")
+        context["msg"] = "This is post list"
+        return context
+
 
 def postview(request):
     post = Post.objects.all()
