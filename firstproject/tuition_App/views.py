@@ -6,7 +6,7 @@ from .models import Contact, Post, Subject
 from .forms import ContactForm, PostForm
 from django.http.response import HttpResponse
 from django.views import View
-from django.views.generic import FormView, CreateView, ListView
+from django.views.generic import FormView, CreateView, ListView, DetailView
 from django.urls import reverse_lazy
 
 
@@ -56,6 +56,11 @@ class ContactView(FormView):
 #     else:
 #         form = ContactForm()
 #     return render(request, "contact.html", {"form": form})
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "tuition/postdetail.html"
 
 
 def postview(request):
