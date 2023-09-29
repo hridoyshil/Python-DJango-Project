@@ -6,29 +6,18 @@
 {% load crispy_forms_tags %}
 
 <div class="container">
-    <h1>Contact Page</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{form|crispy}}
+    <div class="col-md-6 offset-md-3">
+        <div class="container">
+            <h1 class="text-center">Contact Page</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
 
-
-
-
-        <!-- <div class="form-group">
-            <label for="exampleFormControlInput1">Name</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your name" name="name">
+                <button type="submit">Submit</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="exampleFormControlInput1">Phone</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Your Phone" name="phone">
-        </div>
-
-        <div class="form-group">
-            <label for="exampleFormControlTextarea1">Details</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
-        </div> -->
-        <button type="submit">Submit</button>
-    </form>
+    </div>
 </div>
+
 
 {% endblock body %}

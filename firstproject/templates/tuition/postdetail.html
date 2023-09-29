@@ -1,22 +1,33 @@
 {% extends 'basic.html' %}
 {% block body %}
 
-<h1>Post Details</h1>
 
-{{msg}} <br>
+<div class="container">
+    <h1>Post Details</h1>
+    <div class="col-md-6">
+        <img src="{{object.image.url}}" style="width: 300px; height: 300px;" class="rounded-circle img-thumbnailt">
+    </div>
 
 
-Title = {{object.title}} <br>
 
+    {{msg}} <br>
 
-Suject = {% for s in object.subject.all %}
-{{ s.name }}
-{% endfor %}<br>
+    Title = {{object.title}} <br>
 
-Class = {% for s in object.class_in.all %}
-{{ s.name }}
-{% endfor %}<br>
+    Suject = {% for s in object.subject.all %}
+    {{ s.name }}
+    {% endfor %}<br>
 
-Category = {{object.category}}<br>
+    Class = {% for s in object.class_in.all %}
+    {{ s.name }}
+    {% endfor %}<br>
+
+    Category = {{object.category}}<br>
+    Salary = {{object.salary}}<br>
+    Medium = {{object.medium}}<br>
+    Created_at = {{object.created_at}}<br>
+    Available = {% if object.available %} Yes {% else %} No {% endif %}<br>
+    <p>Details: {{object.details}}</p>
+</div>
 
 {% endblock body %}
