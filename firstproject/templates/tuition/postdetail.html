@@ -12,6 +12,7 @@
 
     {% if request.user == object.user %}
     <a href="/tuition_App/edit/{{object.id}}">Edit</a> <br>
+    <a href="/tuition_App/delete/{{object.id}}">Delete</a> <br>
     {% endif %}
 
     Suject = {% for s in object.subject.all %}
