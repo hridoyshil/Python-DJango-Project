@@ -7,12 +7,12 @@
     <div class="col-md-6">
         <img src="{{object.image.url}}" style="width: 300px; height: 300px;" class="rounded-circle img-thumbnailt">
     </div>
-
-
-
     {{msg}} <br>
-
     Title = {{object.title}} <br>
+
+    {% if request.user == object.user %}
+    <a href="/tuition_App/edit/{{object.id}}">Edit</a> <br>
+    {% endif %}
 
     Suject = {% for s in object.subject.all %}
     {{ s.name }}
