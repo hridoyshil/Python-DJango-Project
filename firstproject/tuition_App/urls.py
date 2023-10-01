@@ -10,6 +10,7 @@ from .views import (
     PostDeleteView,
     contact,
     search,
+    filter,
 )
 
 # from .views import  postcreate,contact,
@@ -20,6 +21,7 @@ urlpatterns = [
     # path("contact/", contact, name="contact"),
     # path("create/", postcreate, name="create"),
     path("search/", search, name="search"),
+    path("filter/", filter, name="filter"),
     path("contact/", ContactView.as_view(), name="contact"),
     path("posts/", postview, name="posts"),
     path("postlist/", PostListView.as_view(), name="postlist"),
