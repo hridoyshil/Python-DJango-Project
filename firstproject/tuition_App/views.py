@@ -54,15 +54,20 @@ class ContactView(FormView):
 # Create your views here.
 
 
-# def contact(request):
-#     if request.method == "POST":
-#         form = ContactForm(request.POST)
-#         # name = request.POST["name"]
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = ContactForm()
-#     return render(request, "contact.html", {"form": form})
+def contact(request):
+    initiates = {
+        "name": "My name is ",
+        "phone": "+8801",
+        "content": "My problem is",
+    }
+    if request.method == "POST":
+        form = ContactForm(request.POST, initial=initiates)
+        # name = request.POST["name"]
+        if form.is_valid():
+            form.save()
+    else:
+        form = ContactForm(initial=initiates)
+    return render(request, "contact.html", {"form": form})
 
 
 class PostDetailView(DetailView):
