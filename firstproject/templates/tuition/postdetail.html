@@ -1,5 +1,6 @@
 {% extends 'basic.html' %}
 {% block body %}
+{% load humanize %}
 
 
 <div class="container">
@@ -9,6 +10,8 @@
     </div>
     {{msg}} <br>
     Title = {{object.title}} <br>
+    By user= {{object.user.username}}, at= {{object.created_at| naturaltime}}
+    <br>
 
     {% if request.user == object.user %}
     <a href="/tuition_App/edit/{{object.id}}">Edit</a> <br>
