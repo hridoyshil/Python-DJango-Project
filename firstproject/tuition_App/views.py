@@ -16,6 +16,25 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.db.models import Q
+
+
+def search(request):
+    query = request.POST.get("search", "")
+    if query:
+        queryset = (
+            (Q(title__icontains=query))
+            | (Q(details__icontains=query))
+            | (Q(medium__icontains=query))
+            | (Q(category__icontains=query))
+            | (Q(subject__name__icontains=query))
+            | (Q(class_in__name__icontains=query))
+        )
+        results = Post.objects.filter(queryset).distinct()
+    else:
+        results = []
+    context = {"results": results}
+    return render(request, "tuition/search.html", context)
 
 
 # Form View, Class Based View-Generic View // CBV(Class Based View)

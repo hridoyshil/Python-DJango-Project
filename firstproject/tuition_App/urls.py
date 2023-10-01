@@ -9,6 +9,7 @@ from .views import (
     PostEditView,
     PostDeleteView,
     contact,
+    search,
 )
 
 # from .views import  postcreate,contact,
@@ -17,8 +18,9 @@ app_name = "tuition_App"
 
 urlpatterns = [
     # path("contact/", contact, name="contact"),
-    path("contact/", ContactView.as_view(), name="contact"),
     # path("create/", postcreate, name="create"),
+    path("search/", search, name="search"),
+    path("contact/", ContactView.as_view(), name="contact"),
     path("posts/", postview, name="posts"),
     path("postlist/", PostListView.as_view(), name="postlist"),
     path("postdetail/<int:pk>/", PostDetailView.as_view(), name="postdetail"),
