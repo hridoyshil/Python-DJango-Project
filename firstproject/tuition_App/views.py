@@ -15,6 +15,7 @@ from django.views.generic import (
     DeleteView,
 )
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 # Form View, Class Based View-Generic View // CBV(Class Based View)
@@ -25,6 +26,7 @@ class ContactView(FormView):
     # success_url='/'
     def form_valid(self, form):
         form.save()
+        messages.success(self.request, " From successfully submitted")
         return super().form_valid(form)
 
     def form_invalid(self, form):
