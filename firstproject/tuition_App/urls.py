@@ -16,8 +16,8 @@ from .views import (
 app_name = "tuition_App"
 
 urlpatterns = [
-    path("contact/", contact, name="contact"),
-    # path("contact/", ContactView.as_view(), name="contact"),
+    # path("contact/", contact, name="contact"),
+    path("contact/", ContactView.as_view(), name="contact"),
     # path("create/", postcreate, name="create"),
     path("posts/", postview, name="posts"),
     path("postlist/", PostListView.as_view(), name="postlist"),
