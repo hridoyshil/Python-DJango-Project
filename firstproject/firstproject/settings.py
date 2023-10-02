@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "tuition_App",
     "crispy_forms",
     "multiselectfield",
+    "session",
 ]
 
 MIDDLEWARE = [

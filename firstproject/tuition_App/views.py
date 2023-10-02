@@ -52,11 +52,11 @@ def filter(request):
             results = Post.objects.filter(queryset)
 
             if available:
-                results = results.filter(available=True)
+                results=results.filter(available=True)
             if salary_from:
-                results = results.filter(salary__gte=salary_from)
+                results=results.filter(salary__gte=salary_from)
             if salary_to:
-                results = results.filter(salary__lte=salary_to)
+                results=results.filter(salary__lte=salary_to)
 
         else:
             results = []
