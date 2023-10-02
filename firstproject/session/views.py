@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
+from .forms import SignUpForm
 
 # Create your views here.
 
@@ -30,3 +31,14 @@ def logoutuser(request):
     logout(request)
     messages.success(request, "successfully logged out!")
     return redirect("homeview")
+
+
+def registration(request):
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("session:login")
+    else:
+        form = SignUpForm
+    return render(request, "session/signup.html", {"form": form})
