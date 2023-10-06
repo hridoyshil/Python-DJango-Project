@@ -9,13 +9,15 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, UserProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from .models import UserProfile
+
 
 UserModel = get_user_model()
 # Create your views here.
@@ -101,3 +103,32 @@ def change_password(request):
     else:
         form = PasswordChangeForm(user=request.user)
     return render(request, "session/change_pass.html", {"form": form})
+
+
+# from .models import UserProfile
+# from .forms import UserProfileForm
+def userProfile(request):
+    try:
+        instance = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        instance = None
+    if request.method == "POST":
+        if instance:
+            form = UserProfileForm(request.POST, request.FILES, instance=instance)
+        else:
+            form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            messages.success(request, "successfully Saved Your profile")
+            return redirect("homeview")
+    else:
+        form = UserProfileForm(instance=instance)
+    context = {"form": form}
+    return render(request, "session/userproCreate.html", context)
+
+
+def ownerprofile(request):
+    user = request.user
+    return render(request, "session/userprofile.html", {"user": user})
