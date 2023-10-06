@@ -72,3 +72,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+#  Model Queries -Built In Model Queries
