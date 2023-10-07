@@ -12,7 +12,9 @@
         </div>
     </div>
     {{msg}} <br>
-    Title = {{object.title}} <br>
+    <!-- Title = {{object.ProperCase}} <br> -->
+    <!-- {{object.uppercase}} <br> -->
+    {{object.lowercase}} <br>
     By user= {{object.user.username}}, at= {{object.created_at| naturaltime}}
     <br>
 
@@ -21,14 +23,8 @@
     <a href="/tuition_App/delete/{{object.id}}">Delete</a> <br>
     {% endif %}
 
-    Suject = {% for s in object.subject.all %}
-    {{ s.name }}
-    {% endfor %}<br>
-
-    Class = {% for s in object.class_in.all %}
-    {{ s.name }}
-    {% endfor %}<br>
-
+    Subject= {{object.get_subject_list}} <br />
+    Class ={{object.get_class_list}}<br>
     Category = {{object.category}}<br>
     Salary = {{object.salary}}<br>
     Medium = {{object.medium}}<br>
