@@ -5,7 +5,14 @@ from django.utils.text import slugify
 from multiselectfield import MultiSelectField
 from django.contrib.auth.models import User
 
+
 # Create your models here.
+class PostManager(models.Manager):
+    def sorted(self, title):
+        return self.order_by(title)
+
+    def less_than(self, size):
+        return self.filter(salary__lt=size)
 
 
 class Contact(models.Model):
@@ -108,3 +115,6 @@ class Post(models.Model):
             return " ".join(details_words[:10]) + "...."
         else:
             return self.details
+
+    objects = models.Manager()
+    items = PostManager()

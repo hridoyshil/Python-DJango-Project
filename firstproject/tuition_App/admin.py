@@ -1,10 +1,8 @@
 from django.contrib import admin
 from .models import Contact, Post, Subject, Class_in
-
 from django.utils.html import format_html
-
-
 from django.utils import timezone
+
 
 admin.site.site_header = "TuitionBD Admin Panel"
 admin.site.site_title = "TuitionBD Admin Panel"
