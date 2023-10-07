@@ -7,11 +7,15 @@
     <h1>Post Details</h1>
     <div class="row">
         <div class="col-md-6">
+            <div>
+                <div class="fb-like" data-href="http://127.0.0.1:8000/tuition_App/postdetail/{{object.id}}/"
+                    data-width="" data-layout="" data-action="" data-size="" data-share="true"></div>
+            </div>
             <img src="{{object.image.url}}" alt="" style="width: 300px; height: 300px"
                 class="rounded-circle img-thumbnail">
         </div>
     </div>
-    {{msg}} <br>
+    <br>
     <!-- Title = {{object.ProperCase}} <br> -->
     <!-- {{object.uppercase}} <br> -->
     {{object.lowercase}} <br>
@@ -31,6 +35,10 @@
     Created_at = {{object.created_at}}<br>
     Available = {% if object.available %} Yes {% else %} No {% endif %}<br>
     <p>Details: {{object.details}}</p>
+</div>
+<div>
+    <div class="fb-comments" data-href="http://127.0.0.1:8000/tuition_App/postdetail/{{object.id}}/" data-width=""
+        data-numposts="10"></div>
 </div>
 
 {% endblock body %}
