@@ -52,11 +52,11 @@ def filter(request):
             results = Post.objects.filter(queryset)
 
             if available:
-                results=results.filter(available=True)
+                results = results.filter(available=True)
             if salary_from:
-                results=results.filter(salary__gte=salary_from)
+                results = results.filter(salary__gte=salary_from)
             if salary_to:
-                results=results.filter(salary__lte=salary_to)
+                results = results.filter(salary__lte=salary_to)
 
         else:
             results = []
@@ -207,3 +207,13 @@ class PostDeleteView(DeleteView):
 #     else:
 #         form = PostForm()
 #     return render(request, "tuition/postcreate.html", {"form": form})
+
+import requests
+import json
+def postview(request):
+    api_request = requests.get("https://jsonplaceholder.typicode.com/posts")
+    try:
+        api = json.loads(api_request.content)
+    except:
+        api = "Error"
+    return render(request, "tuition/postlistapi.html", {"api": api})
