@@ -12,6 +12,7 @@ from .views import (
     search,
     filter,
     postview,
+    likepost,
 )
 
 # from .views import  postcreate,contact,
@@ -23,7 +24,8 @@ urlpatterns = [
     # path("create/", postcreate, name="create"),
     path("search/", search, name="search"),
     path("filter/", filter, name="filter"),
-    path("postview/", postview, name="postview"),
+    path("likepost/<int:id>/", likepost, name="likepost"),
+    # path("postview/", postview, name="postview"),
     path("contact/", ContactView.as_view(), name="contact"),
     path("posts/", postview, name="posts"),
     path("postlist/", PostListView.as_view(), name="postlist"),

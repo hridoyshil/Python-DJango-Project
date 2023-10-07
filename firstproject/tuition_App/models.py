@@ -73,6 +73,14 @@ class Post(models.Model):
     )
     subject = models.ManyToManyField(Subject, related_name="subject_set")
     class_in = models.ManyToManyField(Class_in, related_name="class_set")
+    likes = models.ManyToManyField(User, related_name="post_likes")
+    views = models.ManyToManyField(User, related_name="post_views")
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_views(self):
+        return self.views.count()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

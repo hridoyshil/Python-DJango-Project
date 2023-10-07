@@ -35,10 +35,29 @@
     Created_at = {{object.created_at}}<br>
     Available = {% if object.available %} Yes {% else %} No {% endif %}<br>
     <p>Details: {{object.details}}</p>
+
+    <div>
+        {{object.total_views}} Peoples Seen this post <br>
+        {{object.total_likes}} Peoples Seen this post
+    </div>
+    <div>
+        <form action="/tuition_App/likepost/{{object.id}}/" method="post">
+
+            {% csrf_token %}
+
+            {% if liked %}
+            <button type="submit" class="btn btn-warning">Unlike</button>
+
+            {% else %}
+            <button type="submit" class="btn btn-primary">Like</button>
+
+            {% endif %}
+        </form>
+    </div>
 </div>
-<div>
+<!-- <div>
     <div class="fb-comments" data-href="http://127.0.0.1:8000/tuition_App/postdetail/{{object.id}}/" data-width=""
         data-numposts="10"></div>
-</div>
+</div> -->
 
 {% endblock body %}
