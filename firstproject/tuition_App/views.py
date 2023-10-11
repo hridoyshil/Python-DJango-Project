@@ -2,6 +2,7 @@ from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import render
+from .templatetags import tag
 from .models import Contact, Post, Subject, Class_in
 from .forms import ContactForm, PostForm
 from .models import Comment
@@ -134,11 +135,17 @@ class PostDetailView(DetailView):
         post = context.get("object")
         comments = Comment.objects.filter(post=post.id, parent=None)
         replies = Comment.objects.filter(post=post.id).exclude(parent=None)
+        DictofReply = {}
+        for reply in replies:
+            if reply.parent.id not in DictofReply.keys():
+                DictofReply[reply.parent.id] = [reply]
+            else:
+                DictofReply[reply.parent.id].append(reply)
 
         context["post"] = context.get("object")
         context["liked"] = liked
         context["comments"] = comments
-        context["replies"] = replies
+        context["DictofReply"] = DictofReply
         return context
 
 

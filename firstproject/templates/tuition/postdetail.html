@@ -1,6 +1,7 @@
 {% extends 'basic.html' %}
 {% block body %}
 {% load humanize %}
+{% load tag %}
 
 
 <div class="container">
@@ -93,17 +94,31 @@
                         </div>
                         <button type="submit"> Add reply</button>
                     </form>
+
                 </div>
+
+
+                <div>
+                    {% for reply in DictofReply|get_reply:comment.id %}
+                    <div class="row">
+                        <div class="col-md-1">
+                            <img src="{{reply.user.userprofile.image.url}}" class=" rounded-circle img-thumbnail"
+                                style="width:45px;" alt="">
+                        </div>
+                        <div class="col-md-11">
+                            <b>{{reply.user.username}}</b> <span class="badge badge-secondary">
+                                {{reply.created_at|naturaltime}}</span>
+                            <div>{{reply.text}}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+
             </div>
         </div>
         {% endfor %}
     </div>
-
-
 </div>
-<!-- <div>
-    <div class="fb-comments" data-href="http://127.0.0.1:8000/tuition_App/postdetail/{{object.id}}/" data-width=""
-        data-numposts="10"></div>
-</div> -->
-
 {% endblock body %}
