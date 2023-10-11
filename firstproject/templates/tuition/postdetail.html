@@ -38,7 +38,7 @@
 
     <div>
         {{object.total_views}} Peoples Seen this post <br>
-        {{object.total_likes}} Peoples Seen this post
+        {{object.total_likes}} Peoples Liked this Post
     </div>
     <div>
         <form action="/tuition_App/likepost/{{object.id}}/" method="post">
@@ -54,6 +54,52 @@
             {% endif %}
         </form>
     </div>
+
+    <div>
+        <form action="/tuition_App/addcomment/" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <lebel> Your Comment</lebel>
+                <input type="text" name="comment" placeholder="Enter Your Comment" class="form-control">
+                <input type="hidden" name="postid" value="{{object.id}}">
+                <input type="hidden" name="parentid" value="">
+            </div>
+            <button type="submit"> Add Comment</button>
+        </form>
+    </div>
+
+
+    <div>
+        {% for comment in comments %}
+        <div class="row">
+            <div class="col-md-1">
+                <img src="{{comment.user.userprofile.image.url}}" class=" rounded-circle img-thumbnail"
+                    style="width:45px;" alt="">
+            </div>
+            <div class="col-md-10">
+                <b>{{comment.user.username}}</b> <span class="badge badge-secondary">
+                    {{comment.created_at|naturaltime}}</span>
+                <div>{{comment.text}}</div>
+                <div class="row">
+                    <form action="/tuition_App/addcomment/" method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <lebel> Your Comment</lebel>
+                            <input type="text" name="comment" placeholder="Enter Your Comment" class="form-control">
+                            <input type="hidden" name="postid" value="{{object.id}}">
+                            <input type="hidden" name="parentid" value="{{comment.id}}">
+                        </div>
+                        <button type="submit"> Add reply</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
 </div>
 <!-- <div>
     <div class="fb-comments" data-href="http://127.0.0.1:8000/tuition_App/postdetail/{{object.id}}/" data-width=""

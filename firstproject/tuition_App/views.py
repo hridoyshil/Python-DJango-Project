@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Contact, Post, Subject, Class_in
 from .forms import ContactForm, PostForm
+from .models import Comment
 from django.http.response import HttpResponse
 from django.views import View
 from django.views.generic import (
@@ -124,12 +125,20 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         self.object.views.add(self.request.user)
+
         liked = False
         if self.object.likes.filter(id=self.request.user.id).exists():
             liked = True
+
         context = super().get_context_data(*args, **kwargs)
+        post = context.get("object")
+        comments = Comment.objects.filter(post=post.id, parent=None)
+        replies = Comment.objects.filter(post=post.id).exclude(parent=None)
+
         context["post"] = context.get("object")
         context["liked"] = liked
+        context["comments"] = comments
+        context["replies"] = replies
         return context
 
 
@@ -214,6 +223,8 @@ class PostDeleteView(DeleteView):
 
 
 from django.http import HttpResponseRedirect
+
+
 def likepost(request, id):
     if request.method == "POST":
         post = Post.objects.get(id=id)
@@ -225,12 +236,17 @@ def likepost(request, id):
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
-# import requests
-# import json
-# def postview(request):
-#     api_request = requests.get("https://jsonplaceholder.typicode.com/posts")
-#     try:
-#         api = json.loads(api_request.content)
-#     except:
-#         api = "Error"
-#     return render(request, "tuition/postlistapi.html", {"api": api})
+def addcomment(request):
+    if request.method == "POST":
+        comment = request.POST["comment"]
+        parentid = request.POST["parentid"]
+        postid = request.POST["postid"]
+        post = Post.objects.get(id=postid)
+        if parentid:
+            parent = Comment.objects.get(id=parentid)
+            newcom = Comment(text=comment, user=request.user, post=post, parent=parent)
+            newcom.save()
+        else:
+            newcom = Comment(text=comment, user=request.user, post=post)
+            newcom.save()
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
