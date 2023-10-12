@@ -1,4 +1,6 @@
 from django.urls import path
+from .pdf import contact_pdf
+
 from .views import (
     subview,
     ContactView,
@@ -27,6 +29,7 @@ urlpatterns = [
     path("create/", postcreate, name="create"),
     path("search/", search, name="search"),
     path("filter/", filter, name="filter"),
+    path("pdf/", contact_pdf, name="pdf"),
     path("addcomment/", addcomment, name="addcomment"),
     path("likepost/<int:id>/", likepost, name="likepost"),
     # path("postview/", postview, name="postview"),
