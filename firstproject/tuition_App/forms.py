@@ -54,3 +54,12 @@ class PostForm(forms.ModelForm):
                 }
             ),
         }
+
+
+from .models import PostFile
+
+
+class FileModelForm(forms.ModelForm):
+    class Meta:
+        model = PostFile
+        fields = ["image"]

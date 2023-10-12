@@ -1,7 +1,7 @@
 from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .templatetags import tag
 from .models import Contact, Post, Subject, Class_in
 from .forms import ContactForm, PostForm
@@ -257,3 +257,23 @@ def addcomment(request):
             newcom = Comment(text=comment, user=request.user, post=post)
             newcom.save()
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+from .forms import FileModelForm
+from .models import PostFile
+
+
+def addphoto(request, id):
+    post = Post.objects.get(id=id)
+    if request.method == "POST":
+        form = FileModelForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data["image"]
+            obj = PostFile(image=image, post=post)
+            obj.save()
+            messages.success(request, "SUccessfully uploaded image")
+            return redirect(f"/tuition_App/postdetail/{id}/")
+    else:
+        form = FileModelForm()
+    context = {"form": form, "id": id}
+    return render(request, "tuition/addphoto.html", context)

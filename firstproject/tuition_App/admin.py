@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contact, Post, Subject, Class_in, Comment
+from .models import Contact, Post, Subject, Class_in, Comment, PostFile
 from django.utils.html import format_html
 from django.utils import timezone
 
@@ -11,6 +11,10 @@ admin.site.index_title = ""
 
 class CommentInline(admin.TabularInline):
     model = Comment
+
+
+class PostFileInline(admin.TabularInline):
+    model = PostFile
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -35,6 +39,7 @@ class PostAdmin(admin.ModelAdmin):
     actions = ("change_salary_3000",)
     inlines = [
         CommentInline,
+        PostFileInline,
     ]
 
     def title_html_display(self, obj):
@@ -71,3 +76,4 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Subject)
 admin.site.register(Class_in)
 admin.site.register(Comment)
+admin.site.register(PostFile)

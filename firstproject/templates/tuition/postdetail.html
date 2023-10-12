@@ -26,6 +26,7 @@
     {% if request.user == object.user %}
     <a href="/tuition_App/edit/{{object.id}}">Edit</a> <br>
     <a href="/tuition_App/delete/{{object.id}}">Delete</a> <br>
+    <a href="/tuition_App/addphoto/{{object.id}}/"> Addphoto</a> <br />
     {% endif %}
 
     Subject= {{object.get_subject_list}} <br />
