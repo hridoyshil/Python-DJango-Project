@@ -11,5 +11,9 @@ urlpatterns = [
     path("", HomeView.as_view(), name="homeview"),
     # path("", TemplateView.as_view(template_name="home.html"), name="homeview"),
     path("tuition_App/", include("tuition_App.urls")),
+    path("tuition/", include("tuition_App.urls")),
+    path(
+        "inbox/notifications/", include("notifications.urls", namespace="notifications")
+    ),
     path("session/", include("session.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

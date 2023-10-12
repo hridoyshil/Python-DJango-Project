@@ -233,6 +233,7 @@ def postcreate(request):
 
 
 from django.http import HttpResponseRedirect
+from notifications.signals import notify
 
 
 def likepost(request, id):
@@ -242,6 +243,13 @@ def likepost(request, id):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
+            if request.user != post.user:
+                notify.send(
+                    request.user,
+                    recipient=post.user,
+                    verb="has liked your post"
+                    + f""" <a href="/tuition_App/postdetail/{post.id}/"> Go</a>""",
+                )
 
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 

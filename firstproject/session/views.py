@@ -132,3 +132,7 @@ def userProfile(request):
 def ownerprofile(request):
     user = request.user
     return render(request, "session/userprofile.html", {"user": user})
+
+
+def notification(request):
+    return render(request, "session/notification.html")
