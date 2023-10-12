@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import widgets
 from .models import Contact, Post
+from .fields import ListTextWidget
 
 
 class ContactForm(forms.ModelForm):
@@ -54,6 +55,13 @@ class PostForm(forms.ModelForm):
                 }
             ),
         }
+
+    def __init__(self, *args, **kwargs):
+        _district_set = kwargs.pop("district_set", None)
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.fields["district"].widget = ListTextWidget(
+            data_list=_district_set, name="district-set"
+        )
 
 
 from .models import PostFile

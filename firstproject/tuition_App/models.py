@@ -32,6 +32,13 @@ class Class_in(models.Model):
         return self.name
 
 
+class District(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Subject(models.Model):
     name = models.CharField(max_length=100)
 
@@ -73,6 +80,7 @@ class Post(models.Model):
     )
     subject = models.ManyToManyField(Subject, related_name="subject_set")
     class_in = models.ManyToManyField(Class_in, related_name="class_set")
+    district = models.CharField(max_length=100, null=True, blank=True)
     likes = models.ManyToManyField(User, related_name="post_likes")
     views = models.ManyToManyField(User, related_name="post_views")
 

@@ -15,6 +15,7 @@ from .views import (
     likepost,
     addcomment,
     addphoto,
+    postcreate,
 )
 
 # from .views import  postcreate,contact,
@@ -23,7 +24,7 @@ app_name = "tuition_App"
 
 urlpatterns = [
     # path("contact/", contact, name="contact"),
-    # path("create/", postcreate, name="create"),
+    path("create/", postcreate, name="create"),
     path("search/", search, name="search"),
     path("filter/", filter, name="filter"),
     path("addcomment/", addcomment, name="addcomment"),
@@ -37,5 +38,5 @@ urlpatterns = [
     path("edit/<int:pk>/", PostEditView.as_view(), name="edit"),
     path("delete/<int:pk>/", PostDeleteView.as_view(), name="delete"),
     path("subjects/", subview, name="subjects"),
-    path("create/", PostCreareView.as_view(), name="create"),
+    # path("create/", PostCreareView.as_view(), name="create"),
 ]

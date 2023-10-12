@@ -3,7 +3,7 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from .templatetags import tag
-from .models import Contact, Post, Subject, Class_in
+from .models import Contact, Post, Subject, Class_in, District
 from .forms import ContactForm, PostForm
 from .models import Comment
 from django.http.response import HttpResponse
@@ -206,27 +206,30 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy("tuition_App:postlist")
 
 
-# def postcreate(request):
-#     if request.method == "POST":
-#         form = PostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             obj = form.save(commit=False)
-#             obj.user = request.user
-#             obj.save()
+def postcreate(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            dis = form.cleaned_data["district"]
+            if not District.objects.filter(name=dis).exists():
+                disobj = District(name=dis)
+                disobj.save()
+            sub = form.cleaned_data["subject"]
+            for i in sub:
+                obj.subject.add(i)
+                obj.save()
+            class_in = form.cleaned_data["class_in"]
+            for i in class_in:
+                obj.class_in.add(i)
+                obj.save()
+            return HttpResponse("Success")
 
-#             sub = form.cleaned_data["subject"]
-#             for i in sub:
-#                 obj.subject.add(i)
-#                 obj.save()
-#             class_in = form.cleaned_data["class_in"]
-#             for i in class_in:
-#                 obj.class_in.add(i)
-#                 obj.save()
-#             return HttpResponse("Success")
-
-#     else:
-#         form = PostForm()
-#     return render(request, "tuition/postcreate.html", {"form": form})
+    else:
+        form = PostForm(district_set=District.objects.all().order_by("name"))
+    return render(request, "tuition/postcreate.html", {"form": form})
 
 
 from django.http import HttpResponseRedirect
