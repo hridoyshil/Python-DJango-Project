@@ -8,6 +8,7 @@ from .views import (
     userProfile,
     ownerprofile,
     notification,
+    tuitionprofile,
 )
 from django.contrib.auth.views import (
     PasswordResetView,
@@ -24,6 +25,7 @@ urlpatterns = [
     path("ownerprofile/", ownerprofile, name="ownerprofile"),
     path("signup/", registration, name="signup"),
     path("notification/", notification, name="notification"),
+    path("tuitionpro/", tuitionprofile, name="tuitionpro"),
     path("password/", change_password, name="password"),
     path("activate/<uidb64>/<token>/", activate, name="activate"),
     path(

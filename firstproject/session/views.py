@@ -9,14 +9,14 @@ from django.contrib.auth import (
 )
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import SignUpForm, UserProfileForm
+from .forms import SignUpForm, UserProfileForm, TuitionProfileForm
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from .models import UserProfile
+from .models import UserProfile, TuitionProfile
 
 
 UserModel = get_user_model()
@@ -127,6 +127,36 @@ def userProfile(request):
         form = UserProfileForm(instance=instance)
     context = {"form": form}
     return render(request, "session/userproCreate.html", context)
+
+
+def tuitionprofile(request):
+    try:
+        instance = TuitionProfile.objects.get(user=request.user)
+    except:
+        instance = None
+    if request.method == "POST":
+        if instance:
+            form = TuitionProfileForm(request.POST, instance=instance)
+        else:
+            form = TuitionProfileForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            sub = form.cleaned_data["subject"]
+            for i in sub:
+                obj.subject.add(i)
+                obj.save()
+            class_in = form.cleaned_data["class_in"]
+            for i in class_in:
+                obj.class_in.add(i)
+                obj.save()
+            messages.success(request, "successfully Saved Your profile")
+            return redirect("ownerprofile")
+    else:
+        form = TuitionProfileForm(instance=instance)
+    context = {"form": form}
+    return render(request, "session/tuitionProfileCreate.html", context)
 
 
 def ownerprofile(request):
