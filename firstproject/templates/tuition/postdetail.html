@@ -20,7 +20,7 @@
     <!-- Title = {{object.ProperCase}} <br> -->
     <!-- {{object.uppercase}} <br> -->
     {{object.lowercase}} <br>
-    By user= {{object.user.username}}, at= {{object.created_at| naturaltime}}
+    By user= {{user.username}}, at= {{object.created_at| naturaltime}}
     <br>
 
     {% if request.user == object.user %}

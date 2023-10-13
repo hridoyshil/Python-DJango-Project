@@ -163,7 +163,8 @@ class PostListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["posts"] = context.get("object_list")
+        posts = context.get("object_list")
+        context["posts"] = posts
         context["subjects"] = Subject.objects.all()
         context["classes"] = Class_in.objects.all()
         return context

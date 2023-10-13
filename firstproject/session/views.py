@@ -164,5 +164,10 @@ def ownerprofile(request):
     return render(request, "session/userprofile.html", {"user": user})
 
 
+def otherprofile(request, username):
+    user = User.objects.get(username=username)
+    return render(request, "session/otherprofile.html", {"user": user})
+
+
 def notification(request):
     return render(request, "session/notification.html")

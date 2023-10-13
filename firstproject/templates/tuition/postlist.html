@@ -65,9 +65,13 @@
     <H1 class="text-center">All ports are given below</H1>
     {% for p in posts %}
     <div class="col-md-6 offset-md-3 p-2 mt-3 border">
-        {{ p.title }}: <br>
-        by {{p.user.username}} : <br>
+
+        <a href="/session/otherprofile/{{user.username}}/">{{user.username}}</a> <br>
+
+        {{ p.title }} <br>
         <hr>
+
+
         Details: {{p.details_short}}
         <a href="/tuition_App/postdetail/{{p.id}}">...Read more</a>
     </div>
