@@ -210,6 +210,12 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy("tuition_App:postlist")
 
 
+def commentdelete(request, id):
+    comment = Comment.objects.get(id=id)
+    comment.delete()
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
 def receiverchoose(j, obj):
     count = 0
     if j.district == obj.district:

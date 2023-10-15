@@ -2,7 +2,7 @@
 {% block body %}
 
 <div class="container">
-    <div class="col-md-6">
+    <div class="col-md-6 offset-md-3">
         <h1>Filter Posts</h1>
         <form action="/tuition_App/filter/" method="post">
             {% csrf_token %}
@@ -64,16 +64,33 @@
 
     <H1 class="text-center">All ports are given below</H1>
     {% for p in posts %}
-    <div class="col-md-6 offset-md-3 p-2 mt-3 border">
+    <div class="col-md-8 offset-md-2 mb-3 p-3 border">
 
-        <a href="/session/otherprofile/{{user.username}}/">{{user.username}}</a> <br>
+        <div class="row  my-2 position-relative">
+            <div class="col d-flex flex-column">
+                <strong class="d-inline-block mb-2">
+                    <div>
+                        <a href="/session/otherprofile/{{user.username}}/">
+                            <h3> {% if user.get_full_name %} {% else %} {{ user.username}} {% endif %}
 
-        {{ p.title }} <br>
-        <hr>
 
-
-        Details: {{p.details_short}}
-        <a href="/tuition_App/postdetail/{{p.id}}">...Read more</a>
+                            </h3>
+                        </a>
+                        <span class="badge badge-secondary">{{p.created_at}}</span>
+                        <a href="/session/otherprofile/{{user.username}}/">{{user.username}}</a> <br>
+                    </div>
+                    -Searching For a teacher
+                </strong>
+                <div class="preview">
+                    for <b> {{p.medium}}</b> medium's Student <br>
+                    in {{p.district}} District <br>
+                    <b>Salary:</b> {{p.salary}} <br>
+                    <p class="card-text">
+                        <a href="/tuition_App/postdetail/{{p.id}}/"> ...Details</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 
