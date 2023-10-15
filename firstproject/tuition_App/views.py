@@ -2,6 +2,9 @@ from typing import Any
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+from session.forms import TuitionProfileForm
+from session.models import TuitionProfile
 from .templatetags import tag
 from .models import Contact, Post, Subject, Class_in, District
 from .forms import ContactForm, PostForm
@@ -207,6 +210,29 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy("tuition_App:postlist")
 
 
+def receiverchoose(j, obj):
+    count = 0
+    if j.district == obj.district:
+        count = count + 1
+    for i in j.medium:
+        for k in obj.medium:
+            if i == k:
+                count = count + 1
+                break
+    for i in j.subject.all():
+        for k in obj.subject.all():
+            if i == k:
+                count = count + 1
+                break
+    for i in j.class_in.all():
+        for k in obj.class_in.all():
+            if i == k:
+                count = count + 1
+                break
+    if count >= 3:
+        return True
+
+
 def postcreate(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -226,6 +252,17 @@ def postcreate(request):
             for i in class_in:
                 obj.class_in.add(i)
                 obj.save()
+            us = TuitionProfile.objects.all()
+            for i in us:
+                if receiverchoose(i, obj):
+                    receiver = i.user
+                    if receiver != request.user:
+                        notify.send(
+                            request.user,
+                            recipient=receiver,
+                            verb=" has searching a teacher like you"
+                            + f""" <a href="/tuition_App/postdetail/{obj.id}/"> go</a>""",
+                        )
             return HttpResponse("Success")
 
     else:
