@@ -19,6 +19,7 @@ from .views import (
     addphoto,
     postcreate,
     commentdelete,
+    apply,
 )
 
 # from .views import  postcreate,contact,
@@ -43,5 +44,6 @@ urlpatterns = [
     path("edit/<int:pk>/", PostEditView.as_view(), name="edit"),
     path("delete/<int:pk>/", PostDeleteView.as_view(), name="delete"),
     path("subjects/", subview, name="subjects"),
+    path("apply/<int:id>/", apply, name="apply"),
     # path("create/", PostCreareView.as_view(), name="create"),
 ]

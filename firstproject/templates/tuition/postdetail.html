@@ -1,5 +1,7 @@
 {% extends 'basic.html' %}
 {% block body %}
+{% block title %} Post Details
+{% endblock title %}
 {% load humanize %}
 {% load tag %}
 
@@ -55,6 +57,10 @@
 
             {% endif %}
         </form>
+    </div>
+
+    <div>
+        <Button class="btn "> <a href="/tuition_App/apply/{{object.id}}/"> Apply for this tuition</a></Button>
     </div>
 
     <div>

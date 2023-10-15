@@ -332,3 +332,15 @@ def addphoto(request, id):
         form = FileModelForm()
     context = {"form": form, "id": id}
     return render(request, "tuition/addphoto.html", context)
+
+
+def apply(request, id):
+    post = Post.objects.get(id=id)
+    notify.send(
+        request.user,
+        recipient=post.user,
+        verb="has applied for your tuition "
+        + f""" <a href="/session/otherprofile/{request.user.username}/">See Profile</a>""",
+    )
+    messages.success(request, "You Have successfully applied for this tuition!")
+    return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
